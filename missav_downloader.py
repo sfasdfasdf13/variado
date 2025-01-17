@@ -1,6 +1,6 @@
 #coding:utf8
 #title_en: Missav
-#comment: https://missav.com/
+#comment: https://missav.ws/
 #author: Rickelpapu
 import downloader
 from utils import Downloader,try_n,LazyUrl,get_print,Soup,clean_title,Session,get_resolution
@@ -22,7 +22,7 @@ class Video:
         sesion=Session()
         sesion.cookies.clear()
         sesion.headers.clear()
-        sesion.headers.update({'Origin':'https://missav.com','User-Agent':USERAGEN})
+        sesion.headers.update({'Origin':'https://missav.ws/','User-Agent':USERAGEN})
         if urlv[urlv.rfind('.'):]=='.m3u8':
             m=Strimin(urlv,session=sesion,n_thread=4)
             if getattr(m,'live',None)is not None:
@@ -37,7 +37,7 @@ class Video:
         self.dirfile=f'{dir}\\{self.filename}'
         self.tojpg()
         self.havethumbnail()
-        self.url=LazyUrl('https://missav.com/',lambda _: m,self,pp=self.pp)
+        self.url=LazyUrl('https://missav.ws/',lambda _: m,self,pp=self.pp)
 
     def havethumbnail(self):
         if path.exists(self.dirfile):
@@ -87,7 +87,7 @@ class Video:
         url=''.join(narray)
         if not vid:
             return url
-        codigo=downloader.read_html(url,headers={'Origin':'https://missav.com'},user_agent=USERAGEN)
+        codigo=downloader.read_html(url,headers={'Origin':'https://missav.ws'},user_agent=USERAGEN)
         reso=get_resolution()
         for tex in codigo.split()[::-1]:
             if '#' not in tex:
@@ -119,12 +119,12 @@ class Downloader_missav(Downloader):
     type = 'missav'
     single=True
     strip_header=False
-    URLS=['missav.com']
+    URLS=['https://missav.ws']
     display_name='Missav'
     MAX_PARALLEL=2
     #MAX_SPEED=0.7
     icon='base64:iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAaVBMVEX+Yo4AAAD/Yo7+Y47////+Yo//Yo////7+Y4/mvcbvYof/AADQWXHnYoD7YYyqVVX2YYn+Yo3+/////v//Y46ZMzP//f7mu8X9aZL//Pz9Z5H5ep31xdH52uLziqX9h6jxl6/2ztj73uab0JJXAAAAI3RSTlP/AP//////////zgErp/wD3/3///8F/////////////////8G0tiwAAAGzSURBVHicZVOLcoMwDDNxAi1QCpSytnvv/z9ykp3Qdssd4S6WZUV2pLqvfhw0qAxj/3C4Abq2lqQhiEgt0nZ/AQcEhNGUBCxJDk+A46QM4mMwIa4yHe+As5KWEEGENIY+F8CRZ/XO4k4TsANEDgIm5i4WpABwkAbf5ADoo6pcArvKzilqKJWq80iAisX2rAN7CB0AbUkTXd8sYGZ4lRYA2GOqRV7iHF910Z2og3BcSe/BANg+xni6+m38VEIvY740FgGxie/FVMJGGTRrEgWgAUeMH9kSrMF/yVTuG0ZjnJv1JlbJU1ki4XoKgMXJc3GRLijUC+4GDU0uEZvGAOZvMQX/PePGsV6srt1/kFTatLfk+RS/TFLNqwwyOpeJnC39B41gS1lcRxoFdiPBNed4veUEzA1WL1Wo2WM0GlY3p8/NAc4Vra5aaHHjdP2+O+SLzeowTRTFD03K9hj/ztrNgUloFYPBg9l74WjbyCHgQ4s8uO6dXOoyctWRKsrCHJHGQGVoq3Pufja3SNjGng/HszeJqPP4cPj0qJN5GGijeH569nhtKlCBGv4/3vz84bs+P/9fOZAMztosBq4AAAAASUVORK5CYII='
-    ACCEPT_COOKIES=[r'(.*\.)?(missav)\.(com)']
+    ACCEPT_COOKIES=[r'(.*\.)?(missav)\.(ws)']
 
     @try_n(2)
     def read(self):
